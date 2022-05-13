@@ -1,0 +1,53 @@
+2. estructura
+    Contoller
+    Data
+        ->Interfaces
+    Datos
+    Helpers
+    Mapper
+    Models
+    Services
+        ->Interfaces
+3. Agregar Modelos
+4. Agregar Nugets
+    dotnet add package Microsoft.EntityFrameworkCore
+    dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+    dotnet add package Microsoft.EntityFrameworkCore.Design
+                       AutoMapper.Extencions
+5. Agregar DbContext
+
+6. Agregar Conexion a la BD en el Archivo
+   "ConnectionStrings": {
+        "DefaultConnection": "Data Source = MiPrimerAPICRU.db"
+    },
+    
+7. Agregar el DbContext a la configuracion en la clase Starup.clase
+    services.AddDbContext<DataContext>(x=>{
+                            x.UseLazyLoadingProxies();
+                            x.UseSqlite (Configuration.GetConnectionString("DefaultConnection"));
+                        });
+    Agregar LazyLoad:
+        dotnet add package Microsoft.EntityFrameworkCore.Proxies
+
+actualizr errameinta de .NET si es necesario
+    dotnet tool update --global dotnet-ef
+
+    si la ef no esta instalada
+        dotnet tool install --global dotnet-ef
+
+activar migraciones
+    dotnet ef migrations add Initialcreate
+    dotnet ef database update
+
+agregar mappers al archivo startup
+    services.AddAutoMapper(typeof("nombrede la clase mapper").Assembly);
+
+actualizar base de datos 
+    dotnet ef migrations add addPasswordUsuario
+    dotnet ef database update
+
+Instalar paquetes nuget para la configuracion de JWT
+    dotnet add package Microsoft.IdentityModel.Tokens
+    dotnet add package System.IdentityModel.Tokens.Jwt
+    dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+    dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
